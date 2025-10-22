@@ -697,7 +697,7 @@ public class BoardController {
     @GetMapping({"/", "/list"}) // localhost:8080/
     public String BoardList(
             Model model,
-            // size: 리밋, srot : 기준점, drirection : 정렬타입
+            // size: 리밋, sort : 기준점, drirection : 정렬타입
             @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC)
             Pageable pageable
     ) {

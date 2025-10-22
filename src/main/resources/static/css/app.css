@@ -1,4 +1,4 @@
-/* AI */
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 ul li, ol li { list-style: none; } 
 a { text-decoration: none; }
@@ -116,7 +116,6 @@ body { display: flex; flex-direction: column; font-size: 1.4rem; font-family: "P
 
 
 @media (max-width: 768px) {
-    margin: 12px auto;
     .top_info_area { padding: 12px 14px; }
     .table_area { padding: 6px 8px 16px; }
     .table_area table {border: 0;}
