@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 등록</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+    <header class="header">
+        <h1>게시글 등록</h1>
+    </header>
+    <main class="main">
+        <section class="section form">
+            <article class="article normal">
+                <!-- action: 검증 메서드쪽 -->
+                <form class="form" method="post" th:action="@{/write}" th:object="${board}">
+                    <div class="form_item">
+                        <div class="field">
+                            <label for="title">제목</label>
+                            <!-- th:field 없으면 유효성검증 후 value 날라감 -->
+                            <input type="text" id="title" name="title" th:field="*{title}" placeholder="제목을 입력해주세요.">
+                        </div>
+                        <p class="err_msg" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+                    </div>
+
+                    <div class="form_item">
+                        <div class="field">
+                            <label for="name">작성자 </label>
+                            <input type="text" id="name" name="name" th:field="*{name}" placeholder="이름을 입력해주세요.">
+                        </div>
+                        <p class="err_msg" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                    </div>
+
+                    <div class="form_item">
+                        <div class="field">
+                            <label for="password">비밀번호</label>
+                            <input type="text" id="password" name="password" th:field="*{password}" placeholder="설정할 비밀번호 입력해주세요.">
+                        </div>
+                        <p class="err_msg" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+                    </div>
+
+                    <div class="form_item">
+                        <div class="field">
+                            <label for="content">내용</label>
+                            <textarea id="content" name="content" th:field="*{content}"  placeholder="내용 입력"></textarea>
+                        </div>
+                        <p class="err_msg" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></p>
+                    </div>
+
+                    <div class="btn_area center">
+                        <button type="submit" class="btn type_line bg-1">등록하기</button>
+                        <a class="btn type_line bg-4" th:href="@{/list}">이전</a>
+                    </div>
+                </form>
+            </article>
+        </section>
+    </main>
+    <footer class="footer">
+        <p>멋사 -부트캠프 19기 : star1431</p>
+    </footer>
+</body>
+</html>

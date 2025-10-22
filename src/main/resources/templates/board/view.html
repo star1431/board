@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 상세</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+    <header class="header">
+        <h1>게시글 상세</h1>
+    </header>
+    <main class="main">
+        <section class="section view">
+            <article class="article normal">
+                <div class="view_area">
+                    <div class="inner_head">
+                        <div class="title_slot">
+                            <span>[[${board.title}]]</span>
+                        </div>
+                        <div class="info_slot">
+                            <div class="item">
+                                <span>작성자 :</span><span>[[${board.name}]]</span>
+                            </div>
+                            <div class="item">
+                                <span>작성일 :</span><span>[[${board.createdAt}]]</span>
+                            </div>
+                            <div class="item">
+                                <span>수정일 :</span><span>[[${board.updatedAt}]]</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inner_body" th:text="${board.content}">
+                    </div>
+                    <div class="btn_area right">
+                        <a class="btn type_solid bg-2" th:href="@{/list}">목록으로</a>
+                        <a class="btn type_solid bg-3" th:href="@{/update/{id}(id=${board.id})}">수정하기</a>
+                        <a class="btn type_solid bg-4" th:href="@{/delete/{id}(id=${board.id})}">삭제하기</a>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </main>
+    <footer class="footer">
+        <p>멋사 -부트캠프 19기 : star1431</p>
+    </footer>
+</body>
+</html>

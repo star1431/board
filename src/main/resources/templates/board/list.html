@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판목록</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+    <header class="header">
+        <h1>게시판 목록</h1>
+    </header>
+    <main class="main">
+        <section class="section board">
+            <article class="article normal">
+                <div class="top_info_area">
+                    <div class="side_left">
+                        <span>총 <span>[[${dataTotal}]]</span>건의 게시글</span>
+                    </div>
+                    <div class="side_btn_group">
+                        <a class="btn type_solid bg-1" title="글쓰기 화면으로 이동" th:href="@{/writeform}">글쓰기</a>
+                    </div>
+                </div>
+                <div class="table_area">
+                    <table>
+                        <colgroup>
+                            <col style="width: 64px">
+                            <col style="width: auto">
+                            <col style="width: 120px">
+                            <col style="width: 140px">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th><span>번호</span></th>
+                            <th><span>제목</span></th>
+                            <th><span>작성자</span></th>
+                            <th><span>작성일</span></th>
+                        </tr>
+                        </thead>
+                        <tbody th:if="${!boards.empty}">
+                            <tr th:each="board : ${boards}">
+                                <td class="txt_center"><span>[[${board.id}]]</span></td>
+                                <td>
+                                    <a
+                                        class="btn type_text underline"
+                                        th:href="@{/view/{id}(id=${board.id})}"
+                                        th:title="|${board.title} 게시글 보러가기|">
+                                        [[${board.title}]]
+                                    </a>
+                                </td>
+                                <td><span>[[${board.name}]]</span></td>
+                                <td class="txt_center"><span>[[${board.createdAt}]]</span></td>
+                            </tr>
+                        </tbody>
+                        <tbody th:if="${boards.empty}">
+                            <tr class="nodata">
+                                <td colspan="4" class="txt_center">
+                                    <span>게시글 정보가 없습니다.</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div
+                        class="paging_area"
+                        th:if="${boards.totalPages > 0}">
+                        <ul class="pagi_btn_lists">
+                            <li th:each="i:${#numbers.sequence(1,boards.totalPages)}">
+                                <!-- 루프 i == 페이징인덱스(1,2...) 이면 class append -->
+                                <a
+                                    class="btn type_text pagi"
+                                    th:classappend="${i == (boards.number + 1)} ? ' active' : ''"
+                                    th:href="@{/list(page=${i})}">
+                                    [[${i < 10 ? '0' + i : i}]]
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </main>
+    <footer class="footer">
+        <p>멋사 -부트캠프 19기 : star1431</p>
+    </footer>
+</body>
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", () => {
+        // console.log("되니?")
+        const tableEl = document.querySelector('.table_area table');
+        const trEls = tableEl.querySelectorAll('tbody tr');
+
+        trEls.forEach(item => {
+            const linkItem = item.querySelector('a');
+            // console.log(linkItem)
+            if(linkItem) {
+                item.style.cssText = `cursor: pointer;`;
+                item.setAttribute("tabindex", 0);
+                item.addEventListener("keydown", (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        link.click();
+                    }
+                });
+                item.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    window.location.href = linkItem.href;
+                });
+            }
+        });
+    });
+</script>
+</html>
