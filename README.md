@@ -232,15 +232,16 @@ flowchart TD
     H -. POST /delete .-> I["BoardController.deleteBoard()"]
     I -. 입력 ERROR .-> H
     I -- 삭제 후 리다이렉트 /list --> B
-    style A fill:#C8E6C9
+    style A fill:#C8E6C9,color:#000000
     style B fill:#BBDEFB,color:#000000,stroke:#2962FF
-    style C fill:#BBDEFB,stroke:#2962FF
-    style D fill:#BBDEFB,stroke:#2962FF
-    style E fill:#FFF9C4
+    style C fill:#BBDEFB,stroke:#2962FF,color:#000000
+    style D fill:#BBDEFB,stroke:#2962FF,color:#000000
+    style E fill:#FFF9C4,color:#000000
     style F color:#000000,fill:#BBDEFB,stroke:#2962FF
-    style G fill:#FFF9C4
-    style H fill:#BBDEFB,stroke:#2962FF
-    style I fill:#FFF9C4
+    style G fill:#FFF9C4,color:#000000
+    style H fill:#BBDEFB,stroke:#2962FF,color:#000000
+    style I fill:#FFF9C4,color:#000000
+
 
 ```
 
