@@ -212,27 +212,36 @@ url
 ### 5.2 URL 흐름도
 
 ```mermaid
-graph TD
-    A["사용자 브라우저"] -->|GET /list| B["BoardController.list()"]
-    B -->|Model에 boards 추가| C["board/list.html"]
+---
+config:
+  layout: dagre
+---
+flowchart TD
+    A["사용자 브라우저"] -- "GET /list<br>(Model=boards)" --> B["BoardController.list()<br>board/list.html"]
+    B -- "GET /view/:id<br>(Model=board)" --> C["BoardController.viewBoard()<br>board/view.html"]
+    C -- 이전이동 /list --> B
+    B -- "GET /writeform<br>(Model=board)" --> D["BoardController.writeForm()<br>board/writeForm.html"]
+    D -. POST /write .-> E["BoardController.writeBoard()"]
+    E -. 입력 ERROR .-> D
+    E -- 등록 후 리다이렉트 /view/:id --> C
+    C -- "GET /update/:id<br>(Model=board)" --> F["BoardController.updateForm()<br>board/updateForm.html"]
+    F -. POST /update .-> G["BoardController.updateBoard()"]
+    G -. 입력 ERROR .-> F
+    G -- 수정 후 리다이렉트 /view/:id --> C
+    C -- "GET /delete/:id<br>(Model=board)" --> H["BoardController.deleteForm()<br>board/deleteForm.html"]
+    H -. POST /delete .-> I["BoardController.deleteBoard()"]
+    I -. 입력 ERROR .-> H
+    I -- 삭제 후 리다이렉트 /list --> B
+    style A fill:#C8E6C9
+    style B fill:#BBDEFB,color:#000000,stroke:#2962FF
+    style C fill:#BBDEFB,stroke:#2962FF
+    style D fill:#BBDEFB,stroke:#2962FF
+    style E fill:#FFF9C4
+    style F color:#000000,fill:#BBDEFB,stroke:#2962FF
+    style G fill:#FFF9C4
+    style H fill:#BBDEFB,stroke:#2962FF
+    style I fill:#FFF9C4
 
-    A -->|GET /view/:id| D["BoardController.viewBoard()"]
-    D -->|Model에 board 추가| E["board/view.html"]
-
-    A -->|GET /writeform| F["BoardController.writeForm()"]
-    F -->|빈 BoardRequestDTO 추가| G["board/writeForm.html"]
-    G -->|POST /write| H["BoardController.writeBoard()"]
-    H -->|등록 후 리다이렉트 /view/:id| E
-
-    A -->|GET /update/:id| I["BoardController.updateForm()"]
-    I -->|Model에 board 추가| J["board/updateForm.html"]
-    J -->|POST /update| K["BoardController.updateBoard()"]
-    K -->|수정 후 리다이렉트 /view/:id| E
-
-    A -->|GET /delete/:id| L["BoardController.deleteForm()"]
-    L -->|Model에 board 추가| M["board/deleteForm.html"]
-    M -->|POST /delete| N["BoardController.deleteBoard()"]
-    N -->|삭제 후 리다이렉트 /list| C
 ```
 
 ---
